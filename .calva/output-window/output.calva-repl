@@ -1,0 +1,790 @@
+; This is the Calva evaluation results output window.
+; TIPS: The keyboard shortcut `ctrl+alt+c o` shows and focuses this window
+;   when connected to a REPL session.
+; Please see https://calva.io/output/ for more info.
+; Happy coding! ♥️
+
+; Jacking in...
+; Hooking up nREPL sessions...
+; Connected session: clj
+; TIPS: 
+;   - You can edit the contents here. Use it as a REPL if you like.
+;   - `alt+enter` evaluates the current top level form.
+;   - `ctrl+enter` evaluates the current form.
+;   - `alt+up` and `alt+down` traverse up and down the REPL command history
+;      when the cursor is after the last contents at the prompt
+;   - Clojure lines in stack traces are peekable and clickable.
+clj::aanestysbot.core=> 
+
+; Jack-in done.
+clj::aanestysbot.core=> 
+; Evaluating file: aanestykset.clj
+#'aanestysbot.aanestykset/aanestykset
+clj::aanestysbot.aanestykset=> 
+nil
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/url
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/aanestykset
+clj::aanestysbot.aanestykset=> 
+aanestykset
+"{\"page\":0,\"perPage\":1,\"hasMore\":true,\"tableName\":\"SaliDBAanestys\",\"columnNames\":[\"AanestysId\",\"KieliId\",\"IstuntoVPVuosi\",\"IstuntoNumero\",\"IstuntoPvm\",\"IstuntoIlmoitettuAlkuaika\",\"IstuntoAlkuaika\",\"PJOtsikko\",\"AanestysNumero\",\"AanestysAlkuaika\",\"AanestysLoppuaika\",\"AanestysMitatoity\",\"AanestysOtsikko\",\"AanestysLisaOtsikko\",\"PaaKohtaTunniste\",\"PaaKohtaOtsikko\",\"PaaKohtaHuomautus\",\"KohtaKasittelyOtsikko\",\"KohtaKasittelyVaihe\",\"KohtaJarjestys\",\"KohtaTunniste\",\"KohtaOtsikko\",\"KohtaHuomautus\",\"AanestysTulosJaa\",\"AanestysTulosEi\",\"AanestysTulosTyhjia\",\"AanestysTulosPoissa\",\"AanestysTulosYhteensa\",\"Url\",\"AanestysPoytakirja\",\"AanestysPoytakirjaUrl\",\"AanestysValtiopaivaasia\",\"AanestysValtiopaivaasiaUrl\",\"AliKohtaTunniste\",\"Imported\"],\"rowData\":[[\"13265\",\"1\",\"1996\",\"124\",\"1996-10-23 00:00:00\",\"1996-10-23 14:00:00\",\"1996-10-23 14:00:00\",null,\"1\",\"1996-10-23 15:40:23\",\"1996-10-23 15:40:23\",\"0\",\"Pöydällepano, Pulliainen/Rosendahl\",null,null,null,null,\"Ensimmäinen käsittely\",\"Ensimmäinen käsittely\",\"1\",\"1\",\"Lakialoite laiksi kalastuslain muuttamisesta\",null,\"101       \",\"26        \",\"1         \",\"71        \",\"199       \",\"/aanestystulos/1/124/1996\",\"PTK 124/1996 vp\",\"/valtiopaivaasiakirjat/PTK+124/1996\",\"LA 4/1995 vp\",\"/valtiopaivaasiat/LA+4/1995\",null,\"2018-06-02 10:14:00\"]],\"columnCount\":35,\"rowCount\":1,\"pkName\":\"AanestysId\",\"pkStartValue\":null,\"pkLastValue\":null}"
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/aanestykset
+clj::aanestysbot.aanestykset=> 
+aanestykset
+{:hasMore true,
+ :pkName "AanestysId",
+ :pkStartValue nil,
+ :pkLastValue nil,
+ :tableName "SaliDBAanestys",
+ :page 0,
+ :rowData
+ [["13265"
+   "1"
+   "1996"
+   "124"
+   "1996-10-23 00:00:00"
+   "1996-10-23 14:00:00"
+   "1996-10-23 14:00:00"
+   nil
+   "1"
+   "1996-10-23 15:40:23"
+   "1996-10-23 15:40:23"
+   "0"
+   "Pöydällepano, Pulliainen/Rosendahl"
+   nil
+   nil
+   nil
+   nil
+   "Ensimmäinen käsittely"
+   "Ensimmäinen käsittely"
+   "1"
+   "1"
+   "Lakialoite laiksi kalastuslain muuttamisesta"
+   nil
+   "101       "
+   "26        "
+   "1         "
+   "71        "
+   "199       "
+   "/aanestystulos/1/124/1996"
+   "PTK 124/1996 vp"
+   "/valtiopaivaasiakirjat/PTK+124/1996"
+   "LA 4/1995 vp"
+   "/valtiopaivaasiat/LA+4/1995"
+   nil
+   "2018-06-02 10:14:00"]],
+ :perPage 1,
+ :columnNames
+ ["AanestysId"
+  "KieliId"
+  "IstuntoVPVuosi"
+  "IstuntoNumero"
+  "IstuntoPvm"
+  "IstuntoIlmoitettuAlkuaika"
+  "IstuntoAlkuaika"
+  "PJOtsikko"
+  "AanestysNumero"
+  "AanestysAlkuaika"
+  "AanestysLoppuaika"
+  "AanestysMitatoity"
+  "AanestysOtsikko"
+  "AanestysLisaOtsikko"
+  "PaaKohtaTunniste"
+  "PaaKohtaOtsikko"
+  "PaaKohtaHuomautus"
+  "KohtaKasittelyOtsikko"
+  "KohtaKasittelyVaihe"
+  "KohtaJarjestys"
+  "KohtaTunniste"
+  "KohtaOtsikko"
+  "KohtaHuomautus"
+  "AanestysTulosJaa"
+  "AanestysTulosEi"
+  "AanestysTulosTyhjia"
+  "AanestysTulosPoissa"
+  "AanestysTulosYhteensa"
+  "Url"
+  "AanestysPoytakirja"
+  "AanestysPoytakirjaUrl"
+  "AanestysValtiopaivaasia"
+  "AanestysValtiopaivaasiaUrl"
+  "AliKohtaTunniste"
+  "Imported"],
+ :columnCount 35,
+ :rowCount 1}
+clj::aanestysbot.aanestykset=> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+nil
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/aanestykset
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/aanestykset
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/aanestykset
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/aanestykset
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/aanestykset
+clj::aanestysbot.aanestykset=> 
+https://avoindata.eduskunta.fi/api/v1/tables/SaliDBAanestys/rows/13265
+nil
+clj::aanestysbot.aanestykset=> 
+{:hasMore true, :pkName AanestysId, :pkStartValue nil, :pkLastValue nil, :tableName SaliDBAanestys, :page 0, :rowData [[13265 1 1996 124 1996-10-23 00:00:00 1996-10-23 14:00:00 1996-10-23 14:00:00 nil 1 1996-10-23 15:40:23 1996-10-23 15:40:23 0 Pöydällepano, Pulliainen/Rosendahl nil nil nil nil Ensimmäinen käsittely Ensimmäinen käsittely 1 1 Lakialoite laiksi kalastuslain muuttamisesta nil 101        26         1          71         199        /aanestystulos/1/124/1996 PTK 124/1996 vp /valtiopaivaasiakirjat/PTK+124/1996 LA 4/1995 vp /valtiopaivaasiat/LA+4/1995 nil 2018-06-02 10:14:00]], :perPage 1, :columnNames [AanestysId KieliId IstuntoVPVuosi IstuntoNumero IstuntoPvm IstuntoIlmoitettuAlkuaika IstuntoAlkuaika PJOtsikko AanestysNumero AanestysAlkuaika AanestysLoppuaika AanestysMitatoity AanestysOtsikko AanestysLisaOtsikko PaaKohtaTunniste PaaKohtaOtsikko PaaKohtaHuomautus KohtaKasittelyOtsikko KohtaKasittelyVaihe KohtaJarjestys KohtaTunniste KohtaOtsikko KohtaHuomautus AanestysTulosJaa AanestysTulosEi Aanest
+ysTulosTyhjia AanestysTulosPoissa AanestysTulosYhteensa Url AanestysPoytakirja AanestysPoytakirjaUrl AanestysValtiopaivaasia AanestysValtiopaivaasiaUrl AliKohtaTunniste Imported], :columnCount 35, :rowCount 1}
+nil
+clj::aanestysbot.aanestykset=> 
+aanestykset
+{:hasMore true, :pkName "AanestysId", :pkStartValue nil, :pkLastValue nil, :tableName "SaliDBAanestys", :page 0, :rowData [["13265" "1" "1996" "124" "1996-10-23 00:00:00" "1996-10-23 14:00:00" "1996-10-23 14:00:00" nil "1" "1996-10-23 15:40:23" "1996-10-23 15:40:23" "0" "Pöydällepano, Pulliainen/Rosendahl" nil nil nil nil "Ensimmäinen käsittely" "Ensimmäinen käsittely" "1" "1" "Lakialoite laiksi kalastuslain muuttamisesta" nil "101       " "26        " "1         " "71        " "199       " "/aanestystulos/1/124/1996" "PTK 124/1996 vp" "/valtiopaivaasiakirjat/PTK+124/1996" "LA 4/1995 vp" "/valtiopaivaasiat/LA+4/1995" nil "2018-06-02 10:14:00"]], :perPage 1, :columnNames ["AanestysId" "KieliId" "IstuntoVPVuosi" "IstuntoNumero" "IstuntoPvm" "IstuntoIlmoitettuAlkuaika" "IstuntoAlkuaika" "PJOtsikko" "AanestysNumero" "AanestysAlkuaika" "AanestysLoppuaika" "AanestysMitatoity" "AanestysOtsikko" "AanestysLisaOtsikko" "PaaKohtaTunniste" "PaaKohtaOtsikko" "PaaKohtaHuomautus" "KohtaKasittelyOtsikko" "KohtaKasittelyVaihe" "KohtaJarjestys" "KohtaTunniste" "KohtaOtsikko" "KohtaHuomautus" "AanestysTulosJaa" "AanestysTulosEi" "AanestysTulosTyhjia" "AanestysTulosPoissa" "AanestysTulosYhteensa" "Url" "AanestysPoytakirja" "AanestysPoytakirjaUrl" "AanestysValtiopaivaasia" "AanestysValtiopaivaasiaUrl" "AliKohtaTunniste" "Imported"], :columnCount 35, :rowCount 1}
+clj::aanestysbot.aanestykset=> 
+{:hasMore true, :pkName AanestysId, :pkStartValue nil, :pkLastValue nil, :tableName SaliDBAanestys, :page 0, :rowData [[13265 1 1996 124 1996-10-23 00:00:00 1996-10-23 14:00:00 1996-10-23 14:00:00 nil 1 1996-10-23 15:40:23 1996-10-23 15:40:23 0 Pöydällepano, Pulliainen/Rosendahl nil nil nil nil Ensimmäinen käsittely Ensimmäinen käsittely 1 1 Lakialoite laiksi kalastuslain muuttamisesta nil 101        26         1          71         199        /aanestystulos/1/124/1996 PTK 124/1996 vp /valtiopaivaasiakirjat/PTK+124/1996 LA 4/1995 vp /valtiopaivaasiat/LA+4/1995 nil 2018-06-02 10:14:00]], :perPage 1, :columnNames [AanestysId KieliId IstuntoVPVuosi IstuntoNumero IstuntoPvm IstuntoIlmoitettuAlkuaika IstuntoAlkuaika PJOtsikko AanestysNumero AanestysAlkuaika AanestysLoppuaika AanestysMitatoity AanestysOtsikko AanestysLisaOtsikko PaaKohtaTunniste PaaKohtaOtsikko PaaKohtaHuomautus KohtaKasittelyOtsikko KohtaKasittelyVaihe KohtaJarjestys KohtaTunniste KohtaOtsikko KohtaHuomautus AanestysTulosJaa AanestysTulosEi Aanest
+ysTulosTyhjia AanestysTulosPoissa AanestysTulosYhteensa Url AanestysPoytakirja AanestysPoytakirjaUrl AanestysValtiopaivaasia AanestysValtiopaivaasiaUrl AliKohtaTunniste Imported], :columnCount 35, :rowCount 1}
+nil
+clj::aanestysbot.aanestykset=> 
+aanestykset
+{:hasMore true,
+ :pkName "AanestysId",
+ :pkStartValue nil,
+ :pkLastValue nil,
+ :tableName "SaliDBAanestys",
+ :page 0,
+ :rowData
+ [["13265"
+   "1"
+   "1996"
+   "124"
+   "1996-10-23 00:00:00"
+   "1996-10-23 14:00:00"
+   "1996-10-23 14:00:00"
+   nil
+   "1"
+   "1996-10-23 15:40:23"
+   "1996-10-23 15:40:23"
+   "0"
+   "Pöydällepano, Pulliainen/Rosendahl"
+   nil
+   nil
+   nil
+   nil
+   "Ensimmäinen käsittely"
+   "Ensimmäinen käsittely"
+   "1"
+   "1"
+   "Lakialoite laiksi kalastuslain muuttamisesta"
+   nil
+   "101       "
+   "26        "
+   "1         "
+   "71        "
+   "199       "
+   "/aanestystulos/1/124/1996"
+   "PTK 124/1996 vp"
+   "/valtiopaivaasiakirjat/PTK+124/1996"
+   "LA 4/1995 vp"
+   "/valtiopaivaasiat/LA+4/1995"
+   nil
+   "2018-06-02 10:14:00"]],
+ :perPage 1,
+ :columnNames
+ ["AanestysId"
+  "KieliId"
+  "IstuntoVPVuosi"
+  "IstuntoNumero"
+  "IstuntoPvm"
+  "IstuntoIlmoitettuAlkuaika"
+  "IstuntoAlkuaika"
+  "PJOtsikko"
+  "AanestysNumero"
+  "AanestysAlkuaika"
+  "AanestysLoppuaika"
+  "AanestysMitatoity"
+  "AanestysOtsikko"
+  "AanestysLisaOtsikko"
+  "PaaKohtaTunniste"
+  "PaaKohtaOtsikko"
+  "PaaKohtaHuomautus"
+  "KohtaKasittelyOtsikko"
+  "KohtaKasittelyVaihe"
+  "KohtaJarjestys"
+  "KohtaTunniste"
+  "KohtaOtsikko"
+  "KohtaHuomautus"
+  "AanestysTulosJaa"
+  "AanestysTulosEi"
+  "AanestysTulosTyhjia"
+  "AanestysTulosPoissa"
+  "AanestysTulosYhteensa"
+  "Url"
+  "AanestysPoytakirja"
+  "AanestysPoytakirjaUrl"
+  "AanestysValtiopaivaasia"
+  "AanestysValtiopaivaasiaUrl"
+  "AliKohtaTunniste"
+  "Imported"],
+ :columnCount 35,
+ :rowCount 1}
+clj::aanestysbot.aanestykset=> 
+{:hasMore true,
+ :pkName "AanestysId",
+ :pkStartValue nil,
+ :pkLastValue nil,
+ :tableName "SaliDBAanestys",
+ :page 0,
+ :rowData
+ [["13265"
+   "1"
+   "1996"
+   "124"
+   "1996-10-23 00:00:00"
+   "1996-10-23 14:00:00"
+   "1996-10-23 14:00:00"
+   nil
+   "1"
+   "1996-10-23 15:40:23"
+   "1996-10-23 15:40:23"
+   "0"
+   "Pöydällepano, Pulliainen/Rosendahl"
+   nil
+   nil
+   nil
+   nil
+   "Ensimmäinen käsittely"
+   "Ensimmäinen käsittely"
+   "1"
+   "1"
+   "Lakialoite laiksi kalastuslain muuttamisesta"
+   nil
+   "101       "
+   "26        "
+   "1         "
+   "71        "
+   "199       "
+   "/aanestystulos/1/124/1996"
+   "PTK 124/1996 vp"
+   "/valtiopaivaasiakirjat/PTK+124/1996"
+   "LA 4/1995 vp"
+   "/valtiopaivaasiat/LA+4/1995"
+   nil
+   "2018-06-02 10:14:00"]],
+ :perPage 1,
+ :columnNames
+ ["AanestysId"
+  "KieliId"
+  "IstuntoVPVuosi"
+  "IstuntoNumero"
+  "IstuntoPvm"
+  "IstuntoIlmoitettuAlkuaika"
+  "IstuntoAlkuaika"
+  "PJOtsikko"
+  "AanestysNumero"
+  "AanestysAlkuaika"
+  "AanestysLoppuaika"
+  "AanestysMitatoity"
+  "AanestysOtsikko"
+  "AanestysLisaOtsikko"
+  "PaaKohtaTunniste"
+  "PaaKohtaOtsikko"
+  "PaaKohtaHuomautus"
+  "KohtaKasittelyOtsikko"
+  "KohtaKasittelyVaihe"
+  "KohtaJarjestys"
+  "KohtaTunniste"
+  "KohtaOtsikko"
+  "KohtaHuomautus"
+  "AanestysTulosJaa"
+  "AanestysTulosEi"
+  "AanestysTulosTyhjia"
+  "AanestysTulosPoissa"
+  "AanestysTulosYhteensa"
+  "Url"
+  "AanestysPoytakirja"
+  "AanestysPoytakirjaUrl"
+  "AanestysValtiopaivaasia"
+  "AanestysValtiopaivaasiaUrl"
+  "AliKohtaTunniste"
+  "Imported"],
+ :columnCount 35,
+ :rowCount 1}
+clj::aanestysbot.aanestykset=> 
+; Syntax error compiling at (src/aanestysbot/aanestykset.clj:38:24).
+; Unable to resolve symbol: count-url in this context
+clojure.lang.Compiler/analyze (Compiler.java:6808)
+clojure.lang.Compiler$InvokeExpr/parse (Compiler.java:3888)
+clojure.lang.Compiler/analyzeSeq (Compiler.java:7109)
+clojure.lang.Compiler/analyze (Compiler.java:6789)
+clojure.lang.Compiler$InvokeExpr/parse (Compiler.java:3881)
+clojure.lang.Compiler/analyzeSeq (Compiler.java:7109)
+clojure.lang.Compiler/analyze (Compiler.java:6789)
+clojure.lang.Compiler$InvokeExpr/parse (Compiler.java:3888)
+clojure.lang.Compiler/analyzeSeq (Compiler.java:7109)
+clojure.lang.Compiler/analyze (Compiler.java:6789)
+clojure.lang.Compiler$BodyExpr$Parser/parse (Compiler.java:6120)
+clojure.lang.Compiler$FnMethod/parse (Compiler.java:5467)
+clojure.lang.Compiler$FnExpr/parse (Compiler.java:4029)
+clojure.lang.Compiler/analyzeSeq (Compiler.java:7105)
+clojure.lang.Compiler/analyze (Compiler.java:6789)
+clojure.lang.Compiler/eval (Compiler.java:7174)
+clojure.core/eval (core.clj:3214)
+clojure.core/eval (core.clj:3210)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:87)
+clojure.core/apply (core.clj:665)
+clojure.core/with-bindings* (core.clj:1973)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:87)
+clojure.main/repl (main.clj:437)
+clojure.main/repl (main.clj:458)
+clojure.main/repl (main.clj:368)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:84)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:56)
+nrepl.middleware.interruptible-eval/interruptible-eval (interruptible_eval.clj:152)
+nrepl.middleware.session/session-exec (session.clj:202)
+nrepl.middleware.session/session-exec (session.clj:201)
+java.lang.Thread/run (Thread.java:834)
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/count-url
+clj::aanestysbot.aanestykset=> 
+[{:tableName "Attachment", :rowCount 198433}
+ {:tableName "AttachmentGroup", :rowCount 196331}
+ {:tableName "HetekaData", :rowCount 0}
+ {:tableName "MemberOfParliament", :rowCount 2605}
+ {:tableName "PrimaryKeys", :rowCount 23}
+ {:tableName "SaliDBAanestys", :rowCount 32286}
+ {:tableName "SaliDBAanestysAsiakirja", :rowCount 8898365}
+ {:tableName "SaliDBAanestysEdustaja", :rowCount 6392292}
+ {:tableName "SaliDBAanestysJakauma", :rowCount 883179}
+ {:tableName "SaliDBAanestysKieli", :rowCount 2}
+ {:tableName "SaliDBIstunto", :rowCount 940}
+ {:tableName "SaliDBKohta", :rowCount 12542}
+ {:tableName "SaliDBKohtaAanestys", :rowCount 4967}
+ {:tableName "SaliDBKohtaAsiakirja", :rowCount 13668}
+ {:tableName "SaliDBMessageLog", :rowCount 0}
+ {:tableName "SaliDBPuheenvuoro", :rowCount 66588}
+ {:tableName "SaliDBTiedote", :rowCount 743}
+ {:tableName "SeatingOfParliament", :rowCount 200}
+ {:tableName "VaskiData", :rowCount 159207}]
+clj::aanestysbot.aanestykset=> 
+nil
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/count
+; WARNING: count already refers to: #'clojure.core/count in namespace: aanestysbot.aanestykset, being replaced by: #'aanestysbot.aanestykset/count
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/maara
+clj::aanestysbot.aanestykset=> 
+maara
+nil
+clj::aanestysbot.aanestykset=> 
+nil
+clj::aanestysbot.aanestykset=> 
+nil
+clj::aanestysbot.aanestykset=> 
+({:tableName "SaliDBAanestys", :rowCount 32286})
+clj::aanestysbot.aanestykset=> 
+{:hasMore true,
+ :pkName "AanestysId",
+ :pkStartValue nil,
+ :pkLastValue nil,
+ :tableName "SaliDBAanestys",
+ :page 0,
+ :rowData
+ [["13265"
+   "1"
+   "1996"
+   "124"
+   "1996-10-23 00:00:00"
+   "1996-10-23 14:00:00"
+   "1996-10-23 14:00:00"
+   nil
+   "1"
+   "1996-10-23 15:40:23"
+   "1996-10-23 15:40:23"
+   "0"
+   "Pöydällepano, Pulliainen/Rosendahl"
+   nil
+   nil
+   nil
+   nil
+   "Ensimmäinen käsittely"
+   "Ensimmäinen käsittely"
+   "1"
+   "1"
+   "Lakialoite laiksi kalastuslain muuttamisesta"
+   nil
+   "101       "
+   "26        "
+   "1         "
+   "71        "
+   "199       "
+   "/aanestystulos/1/124/1996"
+   "PTK 124/1996 vp"
+   "/valtiopaivaasiakirjat/PTK+124/1996"
+   "LA 4/1995 vp"
+   "/valtiopaivaasiat/LA+4/1995"
+   nil
+   "2018-06-02 10:14:00"]],
+ :perPage 1,
+ :columnNames
+ ["AanestysId"
+  "KieliId"
+  "IstuntoVPVuosi"
+  "IstuntoNumero"
+  "IstuntoPvm"
+  "IstuntoIlmoitettuAlkuaika"
+  "IstuntoAlkuaika"
+  "PJOtsikko"
+  "AanestysNumero"
+  "AanestysAlkuaika"
+  "AanestysLoppuaika"
+  "AanestysMitatoity"
+  "AanestysOtsikko"
+  "AanestysLisaOtsikko"
+  "PaaKohtaTunniste"
+  "PaaKohtaOtsikko"
+  "PaaKohtaHuomautus"
+  "KohtaKasittelyOtsikko"
+  "KohtaKasittelyVaihe"
+  "KohtaJarjestys"
+  "KohtaTunniste"
+  "KohtaOtsikko"
+  "KohtaHuomautus"
+  "AanestysTulosJaa"
+  "AanestysTulosEi"
+  "AanestysTulosTyhjia"
+  "AanestysTulosPoissa"
+  "AanestysTulosYhteensa"
+  "Url"
+  "AanestysPoytakirja"
+  "AanestysPoytakirjaUrl"
+  "AanestysValtiopaivaasia"
+  "AanestysValtiopaivaasiaUrl"
+  "AliKohtaTunniste"
+  "Imported"],
+ :columnCount 35,
+ :rowCount 1}
+clj::aanestysbot.aanestykset=> 
+; Syntax error compiling at (src/aanestysbot/aanestykset.clj:46:5).
+; Unable to resolve symbol: % in this context
+clojure.lang.Compiler/analyze (Compiler.java:6808)
+clojure.lang.Compiler$InvokeExpr/parse (Compiler.java:3888)
+clojure.lang.Compiler/analyzeSeq (Compiler.java:7109)
+clojure.lang.Compiler/analyze (Compiler.java:6789)
+clojure.lang.Compiler$BodyExpr$Parser/parse (Compiler.java:6120)
+clojure.lang.Compiler$FnMethod/parse (Compiler.java:5467)
+clojure.lang.Compiler$FnExpr/parse (Compiler.java:4029)
+clojure.lang.Compiler/analyzeSeq (Compiler.java:7105)
+clojure.lang.Compiler/analyze (Compiler.java:6789)
+clojure.lang.Compiler/eval (Compiler.java:7174)
+clojure.core/eval (core.clj:3214)
+clojure.core/eval (core.clj:3210)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:87)
+clojure.core/apply (core.clj:665)
+clojure.core/with-bindings* (core.clj:1973)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:87)
+clojure.main/repl (main.clj:437)
+clojure.main/repl (main.clj:458)
+clojure.main/repl (main.clj:368)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:84)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:56)
+nrepl.middleware.interruptible-eval/interruptible-eval (interruptible_eval.clj:152)
+nrepl.middleware.session/session-exec (session.clj:202)
+nrepl.middleware.session/session-exec (session.clj:201)
+java.lang.Thread/run (Thread.java:834)
+clj::aanestysbot.aanestykset=> 
+{:hasMore true,
+ :pkName "AanestysId",
+ :pkStartValue nil,
+ :pkLastValue nil,
+ :tableName "SaliDBAanestys",
+ :page 0,
+ :rowData
+ [["13265"
+   "1"
+   "1996"
+   "124"
+   "1996-10-23 00:00:00"
+   "1996-10-23 14:00:00"
+   "1996-10-23 14:00:00"
+   nil
+   "1"
+   "1996-10-23 15:40:23"
+   "1996-10-23 15:40:23"
+   "0"
+   "Pöydällepano, Pulliainen/Rosendahl"
+   nil
+   nil
+   nil
+   nil
+   "Ensimmäinen käsittely"
+   "Ensimmäinen käsittely"
+   "1"
+   "1"
+   "Lakialoite laiksi kalastuslain muuttamisesta"
+   nil
+   "101       "
+   "26        "
+   "1         "
+   "71        "
+   "199       "
+   "/aanestystulos/1/124/1996"
+   "PTK 124/1996 vp"
+   "/valtiopaivaasiakirjat/PTK+124/1996"
+   "LA 4/1995 vp"
+   "/valtiopaivaasiat/LA+4/1995"
+   nil
+   "2018-06-02 10:14:00"]],
+ :perPage 1,
+ :columnNames
+ ["AanestysId"
+  "KieliId"
+  "IstuntoVPVuosi"
+  "IstuntoNumero"
+  "IstuntoPvm"
+  "IstuntoIlmoitettuAlkuaika"
+  "IstuntoAlkuaika"
+  "PJOtsikko"
+  "AanestysNumero"
+  "AanestysAlkuaika"
+  "AanestysLoppuaika"
+  "AanestysMitatoity"
+  "AanestysOtsikko"
+  "AanestysLisaOtsikko"
+  "PaaKohtaTunniste"
+  "PaaKohtaOtsikko"
+  "PaaKohtaHuomautus"
+  "KohtaKasittelyOtsikko"
+  "KohtaKasittelyVaihe"
+  "KohtaJarjestys"
+  "KohtaTunniste"
+  "KohtaOtsikko"
+  "KohtaHuomautus"
+  "AanestysTulosJaa"
+  "AanestysTulosEi"
+  "AanestysTulosTyhjia"
+  "AanestysTulosPoissa"
+  "AanestysTulosYhteensa"
+  "Url"
+  "AanestysPoytakirja"
+  "AanestysPoytakirjaUrl"
+  "AanestysValtiopaivaasia"
+  "AanestysValtiopaivaasiaUrl"
+  "AliKohtaTunniste"
+  "Imported"],
+ :columnCount 35,
+ :rowCount 1}
+clj::aanestysbot.aanestykset=> 
+()
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/get-row-count
+clj::aanestysbot.aanestykset=> 
+(get-row-count)
+()
+clj::aanestysbot.aanestykset=> 
+nil
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/get-row-count
+clj::aanestysbot.aanestykset=> 
+{:hasMore true,
+ :pkName "AanestysId",
+ :pkStartValue nil,
+ :pkLastValue nil,
+ :tableName "SaliDBAanestys",
+ :page 0,
+ :rowData
+ [["13265"
+   "1"
+   "1996"
+   "124"
+   "1996-10-23 00:00:00"
+   "1996-10-23 14:00:00"
+   "1996-10-23 14:00:00"
+   nil
+   "1"
+   "1996-10-23 15:40:23"
+   "1996-10-23 15:40:23"
+   "0"
+   "Pöydällepano, Pulliainen/Rosendahl"
+   nil
+   nil
+   nil
+   nil
+   "Ensimmäinen käsittely"
+   "Ensimmäinen käsittely"
+   "1"
+   "1"
+   "Lakialoite laiksi kalastuslain muuttamisesta"
+   nil
+   "101       "
+   "26        "
+   "1         "
+   "71        "
+   "199       "
+   "/aanestystulos/1/124/1996"
+   "PTK 124/1996 vp"
+   "/valtiopaivaasiakirjat/PTK+124/1996"
+   "LA 4/1995 vp"
+   "/valtiopaivaasiat/LA+4/1995"
+   nil
+   "2018-06-02 10:14:00"]],
+ :perPage 1,
+ :columnNames
+ ["AanestysId"
+  "KieliId"
+  "IstuntoVPVuosi"
+  "IstuntoNumero"
+  "IstuntoPvm"
+  "IstuntoIlmoitettuAlkuaika"
+  "IstuntoAlkuaika"
+  "PJOtsikko"
+  "AanestysNumero"
+  "AanestysAlkuaika"
+  "AanestysLoppuaika"
+  "AanestysMitatoity"
+  "AanestysOtsikko"
+  "AanestysLisaOtsikko"
+  "PaaKohtaTunniste"
+  "PaaKohtaOtsikko"
+  "PaaKohtaHuomautus"
+  "KohtaKasittelyOtsikko"
+  "KohtaKasittelyVaihe"
+  "KohtaJarjestys"
+  "KohtaTunniste"
+  "KohtaOtsikko"
+  "KohtaHuomautus"
+  "AanestysTulosJaa"
+  "AanestysTulosEi"
+  "AanestysTulosTyhjia"
+  "AanestysTulosPoissa"
+  "AanestysTulosYhteensa"
+  "Url"
+  "AanestysPoytakirja"
+  "AanestysPoytakirjaUrl"
+  "AanestysValtiopaivaasia"
+  "AanestysValtiopaivaasiaUrl"
+  "AliKohtaTunniste"
+  "Imported"],
+ :columnCount 35,
+ :rowCount 1}
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/get-row-count
+clj::aanestysbot.aanestykset=> 
+[{:tableName "Attachment", :rowCount 198433}
+ {:tableName "AttachmentGroup", :rowCount 196331}
+ {:tableName "HetekaData", :rowCount 0}
+ {:tableName "MemberOfParliament", :rowCount 2605}
+ {:tableName "PrimaryKeys", :rowCount 23}
+ {:tableName "SaliDBAanestys", :rowCount 32286}
+ {:tableName "SaliDBAanestysAsiakirja", :rowCount 8898365}
+ {:tableName "SaliDBAanestysEdustaja", :rowCount 6392292}
+ {:tableName "SaliDBAanestysJakauma", :rowCount 883179}
+ {:tableName "SaliDBAanestysKieli", :rowCount 2}
+ {:tableName "SaliDBIstunto", :rowCount 940}
+ {:tableName "SaliDBKohta", :rowCount 12542}
+ {:tableName "SaliDBKohtaAanestys", :rowCount 4967}
+ {:tableName "SaliDBKohtaAsiakirja", :rowCount 13668}
+ {:tableName "SaliDBMessageLog", :rowCount 0}
+ {:tableName "SaliDBPuheenvuoro", :rowCount 66588}
+ {:tableName "SaliDBTiedote", :rowCount 743}
+ {:tableName "SeatingOfParliament", :rowCount 200}
+ {:tableName "VaskiData", :rowCount 159207}]
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/get-row-count
+clj::aanestysbot.aanestykset=> 
+({:tableName "SaliDBAanestys", :rowCount 32286})
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/get-row-count
+clj::aanestysbot.aanestykset=> 
+nil
+clj::aanestysbot.aanestykset=> 
+; Syntax error compiling at (src/aanestysbot/aanestykset.clj:49:20).
+; Unable to resolve symbol: count-data in this context
+clojure.lang.Compiler/analyze (Compiler.java:6808)
+clojure.lang.Compiler$InvokeExpr/parse (Compiler.java:3888)
+clojure.lang.Compiler/analyzeSeq (Compiler.java:7109)
+clojure.lang.Compiler/analyze (Compiler.java:6789)
+clojure.lang.Compiler$InvokeExpr/parse (Compiler.java:3888)
+clojure.lang.Compiler/analyzeSeq (Compiler.java:7109)
+clojure.lang.Compiler/analyze (Compiler.java:6789)
+clojure.lang.Compiler$InvokeExpr/parse (Compiler.java:3881)
+clojure.lang.Compiler/analyzeSeq (Compiler.java:7109)
+clojure.lang.Compiler/analyze (Compiler.java:6789)
+clojure.lang.Compiler$BodyExpr$Parser/parse (Compiler.java:6120)
+clojure.lang.Compiler$FnMethod/parse (Compiler.java:5467)
+clojure.lang.Compiler$FnExpr/parse (Compiler.java:4029)
+clojure.lang.Compiler/analyzeSeq (Compiler.java:7105)
+clojure.lang.Compiler/analyze (Compiler.java:6789)
+clojure.lang.Compiler/eval (Compiler.java:7174)
+clojure.core/eval (core.clj:3214)
+clojure.core/eval (core.clj:3210)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:87)
+clojure.core/apply (core.clj:665)
+clojure.core/with-bindings* (core.clj:1973)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:87)
+clojure.main/repl (main.clj:437)
+clojure.main/repl (main.clj:458)
+clojure.main/repl (main.clj:368)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:84)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:56)
+nrepl.middleware.interruptible-eval/interruptible-eval (interruptible_eval.clj:152)
+nrepl.middleware.session/session-exec (session.clj:202)
+nrepl.middleware.session/session-exec (session.clj:201)
+java.lang.Thread/run (Thread.java:834)
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/get-row-count
+clj::aanestysbot.aanestykset=> 
+32286
+clj::aanestysbot.aanestykset=> 
+32286
+clj::aanestysbot.aanestykset=> 
+#'aanestysbot.aanestykset/batch-url
+clj::aanestysbot.aanestykset=> 
