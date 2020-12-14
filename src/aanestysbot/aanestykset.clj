@@ -22,51 +22,43 @@
             [clj-http.client :as client])
   (:gen-class))
 
+;; TO DO: switch to use configs
 (def count-url "https://avoindata.eduskunta.fi/api/v1/tables/counts")
 (def url "https://avoindata.eduskunta.fi/api/v1/tables/SaliDBAanestys/rows/13265")
-(def batch-url "https://avoindata.eduskunta.fi/api/v1/tables/SaliDBAanestys/batch?pkName=AanestysId&pkStartValue=45554")
+;; TO DO get this from dynamodb 45553
+(def start-value "45440")
+(def batch-base-url "https://avoindata.eduskunta.fi/api/v1/tables/SaliDBAanestys/batch?pkName=AanestysId&pkStartValue=")
 
+(def batch-url
+  (str batch-base-url  start-value))
 
-(defn get-aanestykset []
-  (let [aanestykset 
-        (client/get url)]
-  (log/info aanestykset)))
+(def latest-votings (json/read-json (:body (client/get batch-url))))
 
-(def aanestykset (json/read-json (:body (client/get url))))
+(defn create-tweetable-data
+  [data]
+  (into {} [[:url (str "https://www.eduskunta.fi" (:Url data))]
+            [:kohta (:KohtaOtsikko data)]
+            [:asettelu (:AanestysOtsikko data)]
+            [:poytakirja (str "https://www.eduskunta.fi" (:AanestysPoytakirjaUrl data))]
+            [:jaa (:AanestysTulosJaa data)]
+            [:ei (:AanestysTulosEi data)]
+            [:tyhjia (:AanestysTulosTyhjia data)]
+            [:poissa (:AanestysTulosPoissa data)]]))
 
-(println aanestykset)
+(defn get-voting-data
+  []
+  (let [keys (map keyword (:columnNames latest-votings))
+        all-voting-data (map #(zipmap keys %) (:rowData latest-votings))
+        fi-voting-data (filter #(= (:KieliId %) "1") all-voting-data)
+        sv-voting-data (filter #(= (:KieliId %) "2") all-voting-data)]
+    (map #(create-tweetable-data %) fi-voting-data)))
 
+(get-voting-data)
 
- (filter
-  #(= (:tableName %) "SaliDBAanestys")
-  (json/read-json (:body (client/get count-url))))
+(defn push-to-queu
+  []
+  (let [votes (get-voting-data)]
+    (doseq [vote votes]
+      (log/info vote))))
 
-(defn get-row-count []
-       (let [count-data 
-             (-> (client/get count-url)
-                 (:body)
-                 (json/read-json))]
-           (:rowCount  
-            (first (filter
-              #(= (:tableName %) "SaliDBAanestys")
-              count-data)))
-         ))
-   
-(get-row-count)
-
-(get-new-votes [last-vote]
-               
-               )
- 
- ;; EKA LAMBDA
- ;; ==========
- ;; katso firebasesta (ehkä dynamosta?) edellinen äänestysnumero
- ;; katso, kuinka monta äänestystä since edellinen == rowCount
- ;; työnnä jonoon kaikki äänestykset 
- ;; TOKA LAMDA
- ;; ==========
- ;; väijy jonoa
- ;; jos uuusi äänestys --> twiittaa
- ;; jos ei, do nothing
- ;; profit
- 
+(push-to-queu)
