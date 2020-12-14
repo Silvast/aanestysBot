@@ -25,7 +25,8 @@
 ;; TO DO: switch to use configs
 (def count-url "https://avoindata.eduskunta.fi/api/v1/tables/counts")
 (def url "https://avoindata.eduskunta.fi/api/v1/tables/SaliDBAanestys/rows/13265")
-;; TO DO get this from dynamodb 45553
+;; TO DO get this from dynamodb 
+;; 45553
 (def start-value "45440")
 (def batch-base-url "https://avoindata.eduskunta.fi/api/v1/tables/SaliDBAanestys/batch?pkName=AanestysId&pkStartValue=")
 
