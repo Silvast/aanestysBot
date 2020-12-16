@@ -19,7 +19,9 @@
             [malli.util :as mu]
             [clojure.data.json :as json]
             [clojure.tools.logging :as log]
-            [clj-http.client :as client])
+            [clj-http.client :as client]
+            [cognitect.aws.client.api :as aws]
+            [cognitect.aws.credentials :as credentials])
   (:gen-class))
 
 ;; TO DO: switch to use configs
@@ -63,3 +65,12 @@
       (log/info vote))))
 
 (push-to-queu)
+(System/getenv "TESTI")
+
+(def sqs (aws/client {:api :sqs}))
+(def kms (aws/client {:api                  :kms
+                      :credentials-provider (credentials/basic-credentials-provider
+                                             {:access-key-id     ""
+                                              :secret-access-key ""})}))
+(aws/ops sqs)
+(aws/invoke sqs {:op :ListQueues})
