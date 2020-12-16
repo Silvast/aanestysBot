@@ -9,6 +9,9 @@
                  [metosin/jsonista "0.2.6"]
                  [ring/ring-jetty-adapter "1.7.1"]
                  [metosin/reitit "0.5.10"]
+                 [org.apache.logging.log4j/log4j-api "2.11.1"]
+                 [org.apache.logging.log4j/log4j-core "2.11.1"]
+                 [org.apache.logging.log4j/log4j-slf4j-impl "2.11.1"]
                  [org.clojure/tools.logging "1.1.0"]
                  [com.amazonaws/aws-xray-recorder-sdk-core "2.4.0"]
                  [com.amazonaws/aws-xray-recorder-sdk-aws-sdk-v2 "2.4.0"]
@@ -23,6 +26,7 @@
             [jonase/eastwood "0.3.1"]]
   :main ^:skip-aot aanestysbot.core
   :target-path "target/%s"
+  :resource-paths ["configuration"]
   :profiles {:uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}
              :dev {:dependencies [[ring/ring-mock "0.3.2"]]}}
