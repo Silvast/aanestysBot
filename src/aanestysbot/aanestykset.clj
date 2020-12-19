@@ -1,27 +1,8 @@
 (ns aanestysbot.aanestykset
-  (:require [reitit.ring :as ring]
-            [reitit.coercion.malli]
-            [reitit.ring.malli]
-            [reitit.swagger :as swagger]
-            [reitit.swagger-ui :as swagger-ui]
-            [reitit.ring.coercion :as coercion]
-            [reitit.dev.pretty :as pretty]
-            [reitit.ring.middleware.muuntaja :as muuntaja]
-            [reitit.ring.middleware.exception :as exception]
-            [reitit.ring.middleware.multipart :as multipart]
-            [reitit.ring.middleware.parameters :as parameters]
-    ;       [reitit.ring.middleware.dev :as dev]
-    ;       [reitit.ring.spec :as spec]
-    ;       [spec-tools.spell :as spell]
-            [ring.adapter.jetty :as jetty]
-            [muuntaja.core :as m]
-            [clojure.java.io :as io]
-            [malli.util :as mu]
-            [clojure.data.json :as json]
-            [clojure.tools.logging :as log]
+  (:require [clojure.data.json :as json]
             [clj-http.client :as client]
-            [cognitect.aws.client.api :as aws]
-            [cognitect.aws.credentials :as credentials])
+            [clojure.tools.logging :as log]
+            [cognitect.aws.client.api :as aws])
   (:gen-class))
 
 ;; TO DO: switch to use configs
@@ -65,12 +46,7 @@
       (log/info vote))))
 
 (push-to-queu)
-(System/getenv "TESTI")
+(System/getenv "AWS_REGION")
 
 (def sqs (aws/client {:api :sqs}))
-(def kms (aws/client {:api                  :kms
-                      :credentials-provider (credentials/basic-credentials-provider
-                                             {:access-key-id     ""
-                                              :secret-access-key ""})}))
-(aws/ops sqs)
 (aws/invoke sqs {:op :ListQueues})
