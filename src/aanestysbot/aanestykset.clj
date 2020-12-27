@@ -3,12 +3,14 @@
             [clj-http.client :as client]
             [clojure.tools.logging :as log]
             [cognitect.aws.client.api :as aws]
-            [clojure.string :as s])
+            [clojure.string :as s]
+            [environ.core :refer [env]])
   (:gen-class))
 
 ;; TO DO: switch to use configs
 
-(def queue-url "https://sqs.eu-west-1.amazonaws.com/401704393864/aanestysqueue")
+(def queue-url (env :queue-url))
+
 (def sqs (aws/client {:api :sqs}))
 
 (def ddb (aws/client {:api :dynamodb}))
@@ -54,7 +56,6 @@
                        {:MessageBody (json/write-str vote)
                         :QueueUrl queue-url}}))))
 
-(push-to-queu)
 
 (defn update-start-value []
  (aws/invoke ddb {:op :DeleteItem
