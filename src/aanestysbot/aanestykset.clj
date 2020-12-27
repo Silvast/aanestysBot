@@ -2,15 +2,23 @@
   (:require [clojure.data.json :as json]
             [clj-http.client :as client]
             [clojure.tools.logging :as log]
-            [cognitect.aws.client.api :as aws])
+            [cognitect.aws.client.api :as aws]
+            [clojure.string :as s])
   (:gen-class))
 
 ;; TO DO: switch to use configs
-(def count-url "https://avoindata.eduskunta.fi/api/v1/tables/counts")
-(def url "https://avoindata.eduskunta.fi/api/v1/tables/SaliDBAanestys/rows/13265")
-;; TO DO get this from dynamodb 
-;; 45553
-(def start-value "45440")
+
+(def queue-url "https://sqs.eu-west-1.amazonaws.com/401704393864/aanestysqueue")
+(def sqs (aws/client {:api :sqs}))
+
+(def ddb (aws/client {:api :dynamodb}))
+
+(def start-value (get-in 
+                  (aws/invoke ddb {:op :GetItem
+                  :request {:TableName "uusi"
+                            :Key {"id" {:S "1"}}}}) 
+                  [:Item :startvalue :S]))
+
 (def batch-base-url "https://avoindata.eduskunta.fi/api/v1/tables/SaliDBAanestys/batch?pkName=AanestysId&pkStartValue=")
 
 (def batch-url
@@ -24,10 +32,10 @@
             [:kohta (:KohtaOtsikko data)]
             [:asettelu (:AanestysOtsikko data)]
             [:poytakirja (str "https://www.eduskunta.fi" (:AanestysPoytakirjaUrl data))]
-            [:jaa (:AanestysTulosJaa data)]
-            [:ei (:AanestysTulosEi data)]
-            [:tyhjia (:AanestysTulosTyhjia data)]
-            [:poissa (:AanestysTulosPoissa data)]]))
+            [:jaa (s/trim (:AanestysTulosJaa data))]
+            [:ei (s/trim (:AanestysTulosEi data))]
+            [:tyhjia (s/trim (:AanestysTulosTyhjia data))]
+            [:poissa (s/trim (:AanestysTulosPoissa data))]]))
 
 (defn get-voting-data
   []
@@ -37,16 +45,21 @@
         sv-voting-data (filter #(= (:KieliId %) "2") all-voting-data)]
     (map #(create-tweetable-data %) fi-voting-data)))
 
-(get-voting-data)
-
 (defn push-to-queu
   []
   (let [votes (get-voting-data)]
     (doseq [vote votes]
-      (log/info vote))))
+      (aws/invoke sqs {:op :SendMessage
+                       :request
+                       {:MessageBody (json/write-str vote)
+                        :QueueUrl queue-url}}))))
 
 (push-to-queu)
-(System/getenv "AWS_REGION")
 
-(def sqs (aws/client {:api :sqs}))
-(aws/invoke sqs {:op :ListQueues})
+(defn update-start-value []
+ (aws/invoke ddb {:op :DeleteItem
+                 :request {:TableName "uusi"
+                           :Key {"id" {:S "1"}}}})
+(aws/invoke ddb {:op :PutItem
+                 :request {:TableName "uusi"
+                           :Item {"id" {:S "1"} "startvalue" {:S (str (inc (:pkLastValue latest-votings)))}}}}))
