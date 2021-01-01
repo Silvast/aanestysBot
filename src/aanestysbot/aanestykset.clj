@@ -19,18 +19,21 @@
 
 (def ddb (aws/client {:api :dynamodb}))
 
-(defonce start-value (get-in 
-                  (aws/invoke ddb {:op :GetItem
-                  :request {:TableName "uusi"
-                            :Key {"id" {:S "1"}}}}) 
-                  [:Item :startvalue :S]))
+(defn get-start-value []
+  (log/info "Haetaan start-value")
+(let [ddb (aws/client {:api :dynamodb})]
+  (log/info "ddb " ddb)
+ (get-in
+   (aws/invoke ddb {:op :GetItem
+                    :request {:TableName "uusi"
+                              :Key {"id" {:S "1"}}}})
+   [:Item :startvalue :S])))
 
-(def batch-base-url "https://avoindata.eduskunta.fi/api/v1/tables/SaliDBAanestys/batch?pkName=AanestysId&pkStartValue=")
-
-(def batch-url
-  (str batch-base-url  start-value))
-
-(def latest-votings (json/read-json (:body (client/get batch-url))))
+(defn get-latest-votings []
+  (let [start-value (get-start-value)
+        batch-base-url "https://avoindata.eduskunta.fi/api/v1/tables/SaliDBAanestys/batch?pkName=AanestysId&pkStartValue="
+        batch-url (str batch-base-url  start-value)]
+   (json/read-json (:body (client/get batch-url)))))
 
 (defn create-tweetable-data
   [data]
@@ -45,7 +48,8 @@
 
 (defn get-voting-data
   []
-  (let [keys (map keyword (:columnNames latest-votings))
+  (let [latest-votings (get-latest-votings)
+        keys (map keyword (:columnNames latest-votings))
         all-voting-data (map #(zipmap keys %) (:rowData latest-votings))
         fi-voting-data (filter #(= (:KieliId %) "1") all-voting-data)
         sv-voting-data (filter #(= (:KieliId %) "2") all-voting-data)]
@@ -62,7 +66,8 @@
 
 
 (defn update-start-value []
- (let [new-start-value (inc (:pkLastValue latest-votings))]
+ (let [latest-votings (get-latest-votings)
+       new-start-value (inc (:pkLastValue latest-votings))]
    (log/info "Päivitetään start-value arvoon " new-start-value)
   (aws/invoke ddb {:op :DeleteItem
                  :request {:TableName "uusi"
@@ -73,6 +78,7 @@
 
 
 (defn -handler [this event context]
-  (log/info "Käsitellään" start-value "jälkeen tulleet äänestykset")
+(let [start-value (get-start-value)]
+ (log/info "Käsitellään" start-value "jälkeen tulleet äänestykset")
   (push-to-queu)
-  (update-start-value))
+  (update-start-value)))
