@@ -4,9 +4,13 @@
             [clojure.tools.logging :as log]
             [cognitect.aws.client.api :as aws]
             [clojure.string :as s]
-            [environ.core :refer [env]])
-  (:gen-class))
-
+            [environ.core :refer [env]]))
+  
+  (gen-class
+   :name "aanestysHandler"
+   :methods [[^:static handler
+              [com.amazonaws.services.lambda.runtime.events.ScheduledEvent
+              com.amazonaws.services.lambda.runtime.Context] void]])
 ;; TO DO: switch to use configs
 
 (def queue-url (env :queue-url))
@@ -15,7 +19,7 @@
 
 (def ddb (aws/client {:api :dynamodb}))
 
-(def start-value (get-in 
+(defonce start-value (get-in 
                   (aws/invoke ddb {:op :GetItem
                   :request {:TableName "uusi"
                             :Key {"id" {:S "1"}}}}) 
@@ -58,9 +62,17 @@
 
 
 (defn update-start-value []
- (aws/invoke ddb {:op :DeleteItem
+ (let [new-start-value (inc (:pkLastValue latest-votings))]
+   (log/info "Päivitetään start-value arvoon " new-start-value)
+  (aws/invoke ddb {:op :DeleteItem
                  :request {:TableName "uusi"
                            :Key {"id" {:S "1"}}}})
 (aws/invoke ddb {:op :PutItem
                  :request {:TableName "uusi"
-                           :Item {"id" {:S "1"} "startvalue" {:S (str (inc (:pkLastValue latest-votings)))}}}}))
+                           :Item {"id" {:S "1"} "startvalue" {:S (str new-start-value)}}}})))
+
+
+(defn -handler [this event context]
+  (log/info "Käsitellään" start-value "jälkeen tulleet äänestykset")
+  (push-to-queu)
+  (update-start-value))
