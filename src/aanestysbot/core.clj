@@ -7,6 +7,5 @@
 (defn -main
   "I don't do a whole lot ... yet."
   []
-  (log/info "Tää on äänestysbottinen, hihhei!")
-  (aanestykset/push-to-queu)
-  (aanestykset/update-start-value))
+  (aanestykset/get-voting-data)
+  (log/info "Tää on äänestysbottinen, hihhei!"))

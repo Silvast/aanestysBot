@@ -11,10 +11,10 @@
    :methods [[^:static handler
               [com.amazonaws.services.lambda.runtime.events.ScheduledEvent
               com.amazonaws.services.lambda.runtime.Context] void]])
-;; TO DO: switch to use configs
 
-(def queue-url (env :queue-url))
+  ;; This is the source code for lambda which retrieves new votes and if any, puts them in sqs
 
+(def queue-url (env :queue-url)) 
 (def sqs (aws/client {:api :sqs}))
 
 (def ddb (aws/client {:api :dynamodb}))
@@ -34,6 +34,7 @@
         batch-base-url "https://avoindata.eduskunta.fi/api/v1/tables/SaliDBAanestys/batch?pkName=AanestysId&pkStartValue="
         batch-url (str batch-base-url  start-value)]
    (json/read-json (:body (client/get batch-url)))))
+
 
 (defn create-tweetable-data
   [data]
@@ -58,11 +59,13 @@
 (defn push-to-queu
   []
   (let [votes (get-voting-data)]
+    (log/info "sending amount of " (count votes) "to queu")
     (doseq [vote votes]
       (aws/invoke sqs {:op :SendMessage
                        :request
                        {:MessageBody (json/write-str vote)
-                        :QueueUrl queue-url}}))))
+                        :QueueUrl queue-url
+                        :MessageGroupId 1}}))))
 
 
 (defn update-start-value []

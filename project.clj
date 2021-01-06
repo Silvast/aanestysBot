@@ -14,7 +14,8 @@
                  [com.cognitect.aws/endpoints "1.1.11.914"]
                  [environ "1.2.0"]
                  [com.amazonaws/aws-lambda-java-core "1.2.0"]
-                 [com.amazonaws/aws-lambda-java-events "2.2.7"]]
+                 [com.amazonaws/aws-lambda-java-events "2.2.7"]
+                 [twitter-api "1.8.0" :exclusions [org.clojure/tools.logging]]]
   :source-paths ["src"]
   :java-source-paths ["src/java"]
   :target-path "target/%s"
