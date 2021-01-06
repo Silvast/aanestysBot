@@ -33,20 +33,20 @@
 (def sqs (aws/client {:api :sqs}))
 
 (defn receive-vote []
- (let [result (aws/invoke sqs {:op :ReceiveMessage
-                 :request
-                 {:QueueUrl queue-url
-                  :MaxNumberOfMessages 1}})
-      receipt-handle (:ReceiptHandle (first (:Messages result)))
-      vote (json/read-json (:Body (first (:Messages result))))]
-  (into [] [receipt-handle vote])))
+  (let [result (aws/invoke sqs {:op :ReceiveMessage
+                                :request
+                                {:QueueUrl queue-url
+                                 :MaxNumberOfMessages 1}})
+        receipt-handle (:ReceiptHandle (first (:Messages result)))
+        vote (json/read-json (:Body (first (:Messages result))))]
+    (into [] [receipt-handle vote])))
 
 (defn send-tweet [vote]
-      (rest/statuses-update :oauth-creds creds :params
-        {:status
-          (format "% - jaa: % - ei: % - tyhjiä: % - poissa: % - äänestys: %"
-          (:asettelu vote) (:jaa vote) (:ei vote) (:tyhjia vote) 
-                  (:poissa vote) (:url vote))}))
+  (rest/statuses-update :oauth-creds creds :params
+                        {:status
+                         (format "% - jaa: % - ei: % - tyhjiä: % - poissa: % - äänestys: %"
+                                 (:asettelu vote) (:jaa vote) (:ei vote) (:tyhjia vote)
+                                 (:poissa vote) (:url vote))}))
 
 ;; ;; tweet message
 (defn tweet-and-delete-vote []
@@ -58,5 +58,5 @@
                       :ReceiptHandle receipt-handle}})))
 
 (defn -tweetsHandler [this event context]
-    (log/info "Tweeting..")
-    (tweet-and-delete-vote))
+  (log/info "Tweeting..")
+  (tweet-and-delete-vote))
