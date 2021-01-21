@@ -4,7 +4,8 @@
             [clojure.tools.logging :as log]
             [cognitect.aws.client.api :as aws]
             [clojure.string :as s]
-            [environ.core :refer [env]]))
+            [environ.core :refer [env]]
+            [cognitect.aws.credentials :as credentials]))
 
 (gen-class
  :name "aanestysHandler"
@@ -12,22 +13,23 @@
             [com.amazonaws.services.lambda.runtime.events.ScheduledEvent
              com.amazonaws.services.lambda.runtime.Context] void]])
 
-  ;; This is the source code for lambda which retrieves new votes and if any, puts them in sqs
+(def cred-provider (credentials/basic-credentials-provider
+                                             {:access-key-id     (env :aws-access-key)
+                                              :secret-access-key (env :aws-secret-key)}))
 
 (def queue-url (env :queue-url))
-(def sqs (aws/client {:api :sqs}))
 
-(def ddb (aws/client {:api :dynamodb}))
+(def sqs (aws/client {:api :sqs :credentials-provider cred-provider}))
+
+(def ddb (aws/client {:api :dynamodb :credentials-provider cred-provider}))
 
 (defn get-start-value []
   (log/info "Haetaan start-value")
-  (let [ddb (aws/client {:api :dynamodb})]
-    (log/info "ddb " ddb)
     (get-in
      (aws/invoke ddb {:op :GetItem
                       :request {:TableName "uusi"
                                 :Key {"id" {:S "1"}}}})
-     [:Item :startvalue :S])))
+     [:Item :startvalue :S]))
 
 (defn get-latest-votings []
   (let [start-value (get-start-value)

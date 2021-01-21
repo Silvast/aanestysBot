@@ -44,9 +44,16 @@
 (defn send-tweet [vote]
   (rest/statuses-update :oauth-creds creds :params
                         {:status
-                         (format "% - jaa: % - ei: % - tyhjiä: % - poissa: % - äänestys: %"
+                         (format "%s - jaa: %s - ei: %s - tyhjiä: %s - poissa: %s - äänestys: %s"
                                  (:asettelu vote) (:jaa vote) (:ei vote) (:tyhjia vote)
                                  (:poissa vote) (:url vote))}))
+
+(defn send-tweet-test [vote]
+  (log/info "testing tweeting: " vote)
+  (println
+   (format "%s - jaa: %s - ei: %s - tyhjiä: %s - poissa: %s - äänestys: %s"
+           (:asettelu vote) (:jaa vote) (:ei vote) (:tyhjia vote) 
+           (:poissa vote) (:url vote))))
 
 ;; ;; tweet message
 (defn tweet-and-delete-vote []
