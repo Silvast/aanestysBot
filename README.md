@@ -1,6 +1,10 @@
 # aanestysbot
 
-FIXME: description
+Botti hakee Eduskunan avoimesta rajapinnasta. Homma on tehty tietty clojurella, koska edelleen, clojure on rakkautta. 
+
+Homma pyörii muutamalla lambdalla:
+'
+![image info](./doc/aanestysbot.jpg)
 
 ## Installation
 

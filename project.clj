@@ -6,6 +6,7 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [clj-http "3.10.3"]
                  [org.clojure/tools.logging "1.1.0"]
+                 [org.slf4j/slf4j-simple "1.7.30"]
                  [org.clojure/data.json "1.0.0"]
                  [com.cognitect.aws/api "0.8.484"]
                  [com.cognitect.aws/s3 "810.2.801.0"]
@@ -16,7 +17,8 @@
                  [com.amazonaws/aws-lambda-java-core "1.2.0"]
                  [com.amazonaws/aws-lambda-java-events "2.2.7"]
                  [twitter-api "1.8.0" :exclusions [org.clojure/tools.logging]]]
-  :plugins [[lein-environ "1.2.0"]]
+  :plugins [[lein-environ "1.2.0"]
+            [lein-cljfmt "0.7.0"]]
   :source-paths ["src"]
   :java-source-paths ["src/java"]
   :target-path "target/%s"
