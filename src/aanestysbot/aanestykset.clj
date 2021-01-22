@@ -14,22 +14,39 @@
              com.amazonaws.services.lambda.runtime.Context] void]])
 
 (def cred-provider (credentials/basic-credentials-provider
-                                             {:access-key-id     (env :aws-access-key)
-                                              :secret-access-key (env :aws-secret-key)}))
+                    {:access-key-id     (env :aws-access-key)
+                     :secret-access-key (env :aws-secret-key)}))
 
 (def queue-url (env :queue-url))
 
-(def sqs (aws/client {:api :sqs :credentials-provider cred-provider}))
+(def sqs (aws/client {:api :sqs}))
 
-(def ddb (aws/client {:api :dynamodb :credentials-provider cred-provider}))
+(def ddb (aws/client {:api :dynamodb}))
+
+
+(defn testaus []
+  (let [testijuttu (env :test-param)
+        ddb (aws/client {:api :dynamodb})
+        item (aws/invoke ddb {:op :GetItem
+                    :request {:TableName "uusi"
+                              :Key {"id" {:S "1"}}}})
+        start-value (get-in item [:Item :startvalue :S])]
+    (do 
+      (log/info "testausjuttu: " testijuttu)
+      (log/info "ddb " ddb)
+      (log/info "item " item)
+      (log/info "startti " start-value)
+      start-value)))
 
 (defn get-start-value []
   (log/info "Haetaan start-value")
-    (get-in
-     (aws/invoke ddb {:op :GetItem
-                      :request {:TableName "uusi"
-                                :Key {"id" {:S "1"}}}})
-     [:Item :startvalue :S]))
+  (let [start-value (get-in
+   (aws/invoke ddb {:op :GetItem
+                    :request {:TableName "uusi"
+                              :Key {"id" {:S "1"}}}})
+   [:Item :startvalue :S])]
+    (log/info "start-value alussa " start-value)
+    start-value))
 
 (defn get-latest-votings []
   (let [start-value (get-start-value)
@@ -60,13 +77,16 @@
 (defn push-to-queu
   []
   (let [votes (get-voting-data)]
-    (log/info "sending amount of " (count votes) "to queu")
-    (doseq [vote votes]
-      (aws/invoke sqs {:op :SendMessage
-                       :request
-                       {:MessageBody (json/write-str vote)
-                        :QueueUrl queue-url
-                        :MessageGroupId 1}}))))
+    (if (some? votes)
+      (do
+       (log/info "sending amount of " (count votes) "to queu")
+       (doseq [vote votes]
+         (aws/invoke sqs {:op :SendMessage
+                          :request
+                          {:MessageBody (json/write-str vote)
+                           :QueueUrl queue-url
+                           :MessageGroupId 1}})))
+      (log/info "no new votes"))))
 
 (defn update-start-value []
   (let [latest-votings (get-latest-votings)
@@ -82,5 +102,6 @@
 (defn -handler [this event context]
   (let [start-value (get-start-value)]
     (log/info "Käsitellään" start-value "jälkeen tulleet äänestykset")
+    (testaus)
     (push-to-queu)
     (update-start-value)))
