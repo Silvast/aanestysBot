@@ -49,8 +49,8 @@
       (log/info "no new votes"))))
 
 (defn send-tweet [vote]
-  (let [message  (format 
-                  "Äänestys: %s - jaa: %s - ei: %s - tyhjiä: %s - poissa: %s - äänestys: %s" 
+  (let [message  (format
+                  "Äänestys: %s - jaa: %s - ei: %s - tyhjiä: %s - poissa: %s - äänestys: %s"
                   (:asettelu vote) (:jaa vote) (:ei vote) (:tyhjia vote)
                   (:poissa vote) (:poytakirja vote))]
     (log/info "trying to tweet " message)
@@ -59,7 +59,7 @@
 
 (defn tweet-and-delete-vote []
   (let [[receipt-handle vote] (receive-vote)
-         sqs (aws/client {:api :sqs})]
+        sqs (aws/client {:api :sqs})]
     (if (some? vote)
       (do
         (send-tweet vote)
