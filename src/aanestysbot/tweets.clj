@@ -28,7 +28,6 @@
             user-access-token
             user-access-token-secret))
 
-
 (def cred-provider (credentials/basic-credentials-provider
                     {:access-key-id     (env :aws-access-key)
                      :secret-access-key (env :aws-secret-key)}))
@@ -38,48 +37,37 @@
 (def sqs (aws/client {:api :sqs :credentials-provider cred-provider}))
 
 (defn receive-vote []
-  (let [result (aws/invoke sqs {:op :ReceiveMessage
+  (let [sqs (aws/client {:api :sqs})
+        result (aws/invoke sqs {:op :ReceiveMessage
                                 :request
                                 {:QueueUrl queue-url
                                  :MaxNumberOfMessages 1}})]
+    (log/info result)
     (if (some? (first (:Messages result)))
-    (into [] [(:ReceiptHandle (first (:Messages result))) 
-              (json/read-json (:Body (first (:Messages result))))])
-     (log/info "no new votes"))))
-
+      (into [] [(:ReceiptHandle (first (:Messages result)))
+                (json/read-json (:Body (first (:Messages result))))])
+      (log/info "no new votes"))))
 
 (defn send-tweet [vote]
-  (rest/statuses-update :oauth-creds creds :params
-                        {:status
-                         (format "%s - jaa: %s - ei: %s - tyhjiä: %s - poissa: %s - äänestys: %s"
-                                 (:asettelu vote) (:jaa vote) (:ei vote) (:tyhjia vote)
-                                 (:poissa vote) (:url vote))}))
+  (let [message  (format 
+                  "Äänestys: %s - jaa: %s - ei: %s - tyhjiä: %s - poissa: %s - äänestys: %s" 
+                  (:asettelu vote) (:jaa vote) (:ei vote) (:tyhjia vote)
+                  (:poissa vote) (:poytakirja vote))]
+    (log/info "trying to tweet " message)
+    (rest/statuses-update :oauth-creds creds :params
+                          {:status message})))
 
-;; (defn send-tweet-test [vote]
-;;   (log/info "testing tweeting: " vote)
-;;   (log/info
-;;    (format "%s - jaa: %s - ei: %s - tyhjiä: %s - poissa: %s - äänestys: %s"
-;;            (:asettelu vote) (:jaa vote) (:ei vote) (:tyhjia vote) 
-;;            (:poissa vote) (:url vote))))
-
-;; ;; tweet message
 (defn tweet-and-delete-vote []
-  (let [[receipt-handle vote] (receive-vote)]
-    (send-tweet vote)
-    (aws/invoke sqs {:op :DeleteMessage
-                     :request
-                     {:QueueUrl queue-url
-                      :ReceiptHandle receipt-handle}})))
-
-;; (defn test-function []
-;;   (let [sqsnew (aws/client {:api :sqs})
-;;         result (aws/invoke sqsnew {:op :ReceiveMessage
-;;                                 :request
-;;                                 {:QueueUrl queue-url
-;;                                  :MaxNumberOfMessages 1}})]
-;;     (log/info result)
-;;     (log/info "testiresult " result)
-;;     result))
+  (let [[receipt-handle vote] (receive-vote)
+         sqs (aws/client {:api :sqs})]
+    (if (some? vote)
+      (do
+        (send-tweet vote)
+        (aws/invoke sqs {:op :DeleteMessage
+                         :request
+                         {:QueueUrl queue-url
+                          :ReceiptHandle receipt-handle}}))
+      (log/info "vote was nil"))))
 
 (defn -tweetsHandler [this event context]
   (log/info "Tweeting..")

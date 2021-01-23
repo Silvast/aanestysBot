@@ -23,15 +23,14 @@
 
 (def ddb (aws/client {:api :dynamodb}))
 
-
 (defn testaus []
   (let [testijuttu (env :test-param)
         ddb (aws/client {:api :dynamodb})
         item (aws/invoke ddb {:op :GetItem
-                    :request {:TableName "uusi"
-                              :Key {"id" {:S "1"}}}})
+                              :request {:TableName "uusi"
+                                        :Key {"id" {:S "1"}}}})
         start-value (get-in item [:Item :startvalue :S])]
-    (do 
+    (do
       (log/info "testausjuttu: " testijuttu)
       (log/info "ddb " ddb)
       (log/info "item " item)
@@ -41,10 +40,10 @@
 (defn get-start-value []
   (log/info "Haetaan start-value")
   (let [start-value (get-in
-   (aws/invoke ddb {:op :GetItem
-                    :request {:TableName "uusi"
-                              :Key {"id" {:S "1"}}}})
-   [:Item :startvalue :S])]
+                     (aws/invoke ddb {:op :GetItem
+                                      :request {:TableName "uusi"
+                                                :Key {"id" {:S "1"}}}})
+                     [:Item :startvalue :S])]
     (log/info "start-value alussa " start-value)
     start-value))
 
@@ -63,7 +62,8 @@
             [:jaa (s/trim (:AanestysTulosJaa data))]
             [:ei (s/trim (:AanestysTulosEi data))]
             [:tyhjia (s/trim (:AanestysTulosTyhjia data))]
-            [:poissa (s/trim (:AanestysTulosPoissa data))]]))
+            [:poissa (s/trim (:AanestysTulosPoissa data))]
+            [:id (s/trim (:AanestysId data))]]))
 
 (defn get-voting-data
   []
@@ -79,13 +79,13 @@
   (let [votes (get-voting-data)]
     (if (some? votes)
       (do
-       (log/info "sending amount of " (count votes) "to queu")
-       (doseq [vote votes]
-         (aws/invoke sqs {:op :SendMessage
-                          :request
-                          {:MessageBody (json/write-str vote)
-                           :QueueUrl queue-url
-                           :MessageGroupId 1}})))
+        (log/info "sending amount of " (count votes) "to queu")
+        (doseq [vote votes]
+          (aws/invoke sqs {:op :SendMessage
+                           :request
+                           {:MessageBody (json/write-str vote)
+                            :QueueUrl queue-url
+                            :MessageGroupId 1}})))
       (log/info "no new votes"))))
 
 (defn update-start-value []
