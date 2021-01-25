@@ -7,7 +7,8 @@
             [environ.core :refer [env]]
             [twitter.oauth :as oauth]
             [twitter.api.restful :as rest]
-            [cognitect.aws.credentials :as credentials]))
+            [cognitect.aws.credentials :as credentials]
+            [aanestysbot.edustajat :as edustajat]))
 
 (gen-class
  :name "aanestysTweetsHandler"
@@ -51,9 +52,15 @@
 (defn send-tweet [vote]
   (let [message  (format
                   "Äänestys: %s - jaa: %s - ei: %s - tyhjiä: %s - poissa: %s - äänestys: %s"
-                  (:asettelu vote) (:jaa vote) (:ei vote) (:tyhjia vote)
+                  (:kohta vote) (:jaa vote) (:ei vote) (:tyhjia vote)
                   (:poissa vote) (:poytakirja vote))]
     (log/info "trying to tweet " message)
+    (rest/statuses-update :oauth-creds creds :params
+                          {:status message})))
+
+(defn send-edustaja-tweet [vote]
+  (let [message (edustajat/get-random-mp-vote (:id vote) (:kohta vote) (:url vote))]
+    (log/info "trying to tweet edustajatweet: " message)
     (rest/statuses-update :oauth-creds creds :params
                           {:status message})))
 
@@ -62,7 +69,7 @@
         sqs (aws/client {:api :sqs})]
     (if (some? vote)
       (do
-        (send-tweet vote)
+        (send-edustaja-tweet vote)
         (aws/invoke sqs {:op :DeleteMessage
                          :request
                          {:QueueUrl queue-url

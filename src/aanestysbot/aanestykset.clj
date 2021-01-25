@@ -23,20 +23,6 @@
 
 (def ddb (aws/client {:api :dynamodb}))
 
-(defn testaus []
-  (let [testijuttu (env :test-param)
-        ddb (aws/client {:api :dynamodb})
-        item (aws/invoke ddb {:op :GetItem
-                              :request {:TableName "uusi"
-                                        :Key {"id" {:S "1"}}}})
-        start-value (get-in item [:Item :startvalue :S])]
-    (do
-      (log/info "testausjuttu: " testijuttu)
-      (log/info "ddb " ddb)
-      (log/info "item " item)
-      (log/info "startti " start-value)
-      start-value)))
-
 (defn get-start-value []
   (log/info "Haetaan start-value")
   (let [start-value (get-in
@@ -58,7 +44,7 @@
   (into {} [[:url (str "https://www.eduskunta.fi" (:Url data))]
             [:kohta (:KohtaOtsikko data)]
             [:asettelu (:AanestysOtsikko data)]
-            [:poytakirja (str "https://www.eduskunta.fi" (:AanestysPoytakirjaUrl data))]
+            [:poytakirja (str "https://www.eduskunta.fi/FI/vaski/Poytakirja/Sivut" (s/replace (:AanestysPoytakirjaUrl data) "valtiopaivaasiakirjat" ""))]
             [:jaa (s/trim (:AanestysTulosJaa data))]
             [:ei (s/trim (:AanestysTulosEi data))]
             [:tyhjia (s/trim (:AanestysTulosTyhjia data))]
@@ -102,6 +88,5 @@
 (defn -handler [this event context]
   (let [start-value (get-start-value)]
     (log/info "Käsitellään" start-value "jälkeen tulleet äänestykset")
-    (testaus)
     (push-to-queu)
     (update-start-value)))
