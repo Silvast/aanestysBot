@@ -15,7 +15,7 @@
     formatted-data))
 
 (defn form-better-voting-url [url]
-(let [numbers (-> "6/161/2020" (clojure.string/split #"\/"))]
+(let [numbers (-> url (clojure.string/split #"\/"))]
     (str "https://www.eduskunta.fi/FI/Vaski/sivut/aanestys.aspx?aanestysnro=" (first numbers) "&istuntonro=" (second numbers) 
          "&vuosi=" (nth numbers 2))))
 
