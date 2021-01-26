@@ -4,7 +4,7 @@ Botti hakee äänestystuloksia [Eduskunan avoimesta rajapinnasta](https://avoind
 
 Homma pyörii muutamalla lambdalla, kutakuinkin näin:
 
-![image info](./doc/arkkitehtuuri.jpg)
+![image info](./doc/aanestysbot.jpg)
 
 # TO DO
 - Travishommelit tahi muut vastaavat, niin, että lamdojen deployaaminen menisi automatisoituna. 
